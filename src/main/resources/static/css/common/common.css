@@ -1,0 +1,64 @@
+label.error {
+    font-weight: normal;
+    margin: 0
+}
+.fa-cb-container {
+    display: inline-block;
+}
+.fa-cb-box {
+    overflow: hidden;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    align-items: center;
+}
+.fa-cb-label {
+    display: inline-block;
+    text-align: right;
+    padding-right: 5px;
+}
+.ck-box input {
+    display: none;
+}
+.ck-box .ck-bg {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+.ck-16 {
+    width: 16px;
+    height: 16px;
+}
+.ck-22 {
+    width: 22px;
+    height: 22px;
+}
+.ck-16 .ck-bg {
+    background: url('../../img/common/ck_bg_16.png') no-repeat 0 0;
+}
+.ck-16 .ck-bg:hover {
+    background: url('../../img/common/ck_bg_16.png') no-repeat -17px 0;
+}
+.ck-16 input:checked+.ck-bg {
+    background-position: -35px 0;
+}
+.ck-22 .ck-bg {
+    width: 22px;
+    height: 22px;
+    background: url('../img/ck_bg_22.png') no-repeat 0 0;
+}
+.ck-22 .ck-bg:hover {
+    background: url('../img/ck_bg_22.png') no-repeat -24px 0;
+}
+.ck-22 input:checked+.ck-bg {
+    background-position: -48px 0;
+}
+.w100{
+    width:100%;
+}
+.h100{
+    height:100%;
+}
+.dis-none{
+    display: none
+}

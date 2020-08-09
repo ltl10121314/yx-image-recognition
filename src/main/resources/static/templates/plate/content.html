@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="yuxue">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <title>18F | 车牌识别</title>
+
+    <link href="../../css/vel/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/vel/bootstrap-reset.css" rel="stylesheet">
+
+    <!--Animation css-->
+    <link href="../../css/vel/animate.css" rel="stylesheet">
+
+    <!--Icon-fonts css-->
+    <link href="../../lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../lib/ionicon/css/ionicons.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="../../css/vel/style.css" rel="stylesheet">
+    <link href="../../css/vel/helper.css" rel="stylesheet">
+    <link href="../../css/vel/style-responsive.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="../../lib/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+
+    <style>
+        .wraper {
+            padding-bottom: 0px!important;
+        }
+
+        ul.ztree{
+            width:  auto!important;
+            background-color: white;
+            /*min-height: 200px!important;*/
+            /*height: 300px!important;*/
+            overflow-y: auto!important;
+            border: none!important;
+        }
+
+        .layui-layer-page .layui-layer-content{
+            height: auto!important;
+            max-height: 535px;
+        }
+
+        ul {
+            padding-inline-start: 20px;
+        }
+
+        .icon-refresh{
+            margin-top: -2px;
+            margin-left: 1px;
+            height: 16px;
+            width: 16px;
+            display: inline-block;
+            vertical-align: middle;
+            border: 0 none;
+            cursor: pointer;
+            background-size:cover;
+            background-image: url('../../img/refresh.png');
+        }
+
+        .process{
+            clear: both;
+            float: left;
+        }
+        .process-div{
+            float: left;
+            margin-right: 10px;
+            padding-top: -5px;
+
+        }
+        .process-img{
+            max-width: 800px;
+            max-height: 400px;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<!-- Page Content Start 当前页面渲染 -->
+<div class="wraper container-fluid">
+    <div class="row">
+        <div class="column col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="btn-toolbar" role="toolbar">
+                        <h3 class="pull-left m-t-5 m-b-0" id="title">文件</h3>
+                        <div class="pull-right">
+                            <!--<button type="button" class="btn btn-success m-r-5" id="choseDirBtn"><span>选择</span></button>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body" id="treeDiv" style="overflow-y: auto;">
+                    <ul id="treeId" class="ztree"></ul>
+                </div>
+                <div class="panel-body" id="custom-toc-container" style="overflow-x: auto;display: none;">
+                </div>
+            </div>
+        </div>
+
+        <div class="column col-md-9">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <div class="btn-toolbar" role="toolbar">
+                        <h3 class="pull-left m-t-5 m-b-0">预览</h3>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-success m-r-5" id="recognise"><span>重新识别</span></button>
+                            <!--<button type="button" class="btn btn-pink m-r-5" id="openDir"><span>打开目录</span></button>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body" id = "bodyDiv" style="overflow-y: auto;">
+                    <div class="row"  style="width: 100%;padding: 10px 10px;">
+                        <div align="left">
+                            <img id="baseImage" src="../../img/nopic.jpg" style="max-width: 800px; max-height: 400px;min-height: 400px;">
+                            <div>
+                                <span id="span_plate"></span>
+                                <span id="span_color"></span>
+                            </div>
+                            <div id="processStepDiv">
+                                <!--<div id="resultDiv" align="left" style="padding-top:10px;"></div>-->
+                                <!--<br/>-->
+                                <!--<div id="processDiv" align="left" style="padding-top:10px;"></div>-->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="choseDirDiv" class="panel-body" style="display: none;"></div>
+<div id="addFileDiv" class="panel-body" style="display: none;"></div>
+
+<!-- js placed at the end of the document so the pages load faster -->
+<script src="../../lib/jquery/jquery.js"></script>
+<script src="../../lib/print_1.0.61/print.min.js"></script>
+
+<script src="../../lib/vel/pace.min.js"></script>
+<script src="../../lib/vel/wow.min.js"></script>
+<script src="../../lib/vel/jquery.nicescroll.js" type="text/javascript"></script>
+
+<!-- 弹窗 -->
+<script src="../../lib/layer/layer.js"></script>
+
+<script type="text/javascript" src="../../lib/spinner/spinner.min.js"></script>
+
+<script type="text/javascript" src="../../lib/ztree/js/jquery.ztree.all.min.js"></script>
+
+<script src="../../lib/require/require.js" data-main="../../js/controller/plate/plateContentCtrl.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuxue.mapper.PlateRecoDebugMapper">
+    
+    <resultMap id="BaseResultMap" type="com.yuxue.entity.PlateRecoDebugEntity">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+        <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+        <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+        <result column="debug_type" jdbcType="VARCHAR" property="debugType" />
+        <result column="file_length" jdbcType="INTEGER" property="fileLength" />
+        <result column="last_reco_time" jdbcType="VARCHAR" property="lastRecoTime" />
+        <result column="reco_plate" jdbcType="VARCHAR" property="recoPlate" />
+        <result column="plate_color" jdbcType="VARCHAR" property="plateColor" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        id, parent_id, file_name, file_path, debug_type, file_length, last_reco_time, reco_plate, 
+        plate_color, sort
+    </sql>
+    
+    <sql id="Base_Where_Clause">
+        <where>
+            <if test="parentId != null">
+                 and parent_id = #{parentId,jdbcType=INTEGER}
+            </if>
+            <if test="fileName != null">
+                 and file_name = #{fileName,jdbcType=VARCHAR}
+            </if>
+            <if test="filePath != null">
+                 and file_path = #{filePath,jdbcType=VARCHAR}
+            </if>
+            <if test="debugType != null">
+                 and debug_type = #{debugType,jdbcType=VARCHAR}
+            </if>
+            <if test="fileLength != null">
+                 and file_length = #{fileLength,jdbcType=INTEGER}
+            </if>
+            <if test="lastRecoTime != null">
+                 and last_reco_time = #{lastRecoTime,jdbcType=VARCHAR}
+            </if>
+            <if test="recoPlate != null">
+                 and reco_plate = #{recoPlate,jdbcType=VARCHAR}
+            </if>
+            <if test="plateColor != null">
+                 and plate_color = #{plateColor,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null">
+                 and sort = #{sort,jdbcType=INTEGER}
+            </if>
+        </where>
+    </sql>
+    
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List" />
+        from t_plate_reco_debug
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        select id, parent_id, file_name, file_path, debug_type, file_length, last_reco_time, 
+        reco_plate, plate_color, sort
+        from t_plate_reco_debug
+        <include refid="Base_Where_Clause" />
+        order by sort, file_name
+    </select>
+    
+    <insert id="insert" parameterType="com.yuxue.entity.PlateRecoDebugEntity">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            Sqlite
+        </selectKey>
+        insert into t_plate_reco_debug (parent_id, file_name, file_path, 
+            debug_type, file_length, last_reco_time, 
+            reco_plate, plate_color, sort
+            )
+        values (#{parentId,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
+            #{debugType,jdbcType=VARCHAR}, #{fileLength,jdbcType=INTEGER}, #{lastRecoTime,jdbcType=VARCHAR}, 
+            #{recoPlate,jdbcType=VARCHAR}, #{plateColor,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}
+            )
+    </insert>
+    
+    <insert id="insertSelective" parameterType="com.yuxue.entity.PlateRecoDebugEntity">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            Sqlite
+        </selectKey>
+        insert into t_plate_reco_debug
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="fileName != null">
+                file_name,
+            </if>
+            <if test="filePath != null">
+                file_path,
+            </if>
+            <if test="debugType != null">
+                debug_type,
+            </if>
+            <if test="fileLength != null">
+                file_length,
+            </if>
+            <if test="lastRecoTime != null">
+                last_reco_time,
+            </if>
+            <if test="recoPlate != null">
+                reco_plate,
+            </if>
+            <if test="plateColor != null">
+                plate_color,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">
+                #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="fileName != null">
+                #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="filePath != null">
+                #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="debugType != null">
+                #{debugType,jdbcType=VARCHAR},
+            </if>
+            <if test="fileLength != null">
+                #{fileLength,jdbcType=INTEGER},
+            </if>
+            <if test="lastRecoTime != null">
+                #{lastRecoTime,jdbcType=VARCHAR},
+            </if>
+            <if test="recoPlate != null">
+                #{recoPlate,jdbcType=VARCHAR},
+            </if>
+            <if test="plateColor != null">
+                #{plateColor,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="com.yuxue.entity.PlateRecoDebugEntity">
+        update t_plate_reco_debug
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="fileName != null">
+                file_name = #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="filePath != null">
+                file_path = #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="debugType != null">
+                debug_type = #{debugType,jdbcType=VARCHAR},
+            </if>
+            <if test="fileLength != null">
+                file_length = #{fileLength,jdbcType=INTEGER},
+            </if>
+            <if test="lastRecoTime != null">
+                last_reco_time = #{lastRecoTime,jdbcType=VARCHAR},
+            </if>
+            <if test="recoPlate != null">
+                reco_plate = #{recoPlate,jdbcType=VARCHAR},
+            </if>
+            <if test="plateColor != null">
+                plate_color = #{plateColor,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateByPrimaryKey" parameterType="com.yuxue.entity.PlateRecoDebugEntity">
+        update t_plate_reco_debug
+        set parent_id = #{parentId,jdbcType=INTEGER},
+            file_name = #{fileName,jdbcType=VARCHAR},
+            file_path = #{filePath,jdbcType=VARCHAR},
+            debug_type = #{debugType,jdbcType=VARCHAR},
+            file_length = #{fileLength,jdbcType=INTEGER},
+            last_reco_time = #{lastRecoTime,jdbcType=VARCHAR},
+            reco_plate = #{recoPlate,jdbcType=VARCHAR},
+            plate_color = #{plateColor,jdbcType=VARCHAR},
+            sort = #{sort,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_plate_reco_debug
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    
+    
+    <delete id="deleteByParentId" parameterType="java.lang.Integer">
+        delete from t_plate_reco_debug
+        where parent_id = #{parentId,jdbcType=INTEGER}
+    </delete>
+    
+    
+    <insert id="batchInsert">
+        insert into t_plate_reco_debug (parent_id, file_name, file_path, 
+            debug_type, reco_plate, plate_color, sort )
+        values
+        <foreach collection="list" index="index" item="item" open="(" close=")" separator="),(">
+            ifnull(#{item.parentId,jdbcType=INTEGER}, 0), ifnull(#{item.fileName,jdbcType=VARCHAR}, ''), ifnull(#{item.filePath,jdbcType=VARCHAR}, ''), 
+            ifnull(#{item.debugType,jdbcType=VARCHAR}, ''), ifnull(#{item.recoPlate,jdbcType=VARCHAR}, ''), 
+            ifnull(#{item.plateColor,jdbcType=VARCHAR}, ''), ifnull(#{item.sort,jdbcType=INTEGER}, 0)
+        </foreach>
+    </insert>
+    
+</mapper>

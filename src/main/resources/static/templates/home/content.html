@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="交通大脑">
+    <meta name="author" content="fw">
+
+    <link rel="shortcut icon" href="../../img/favicon_1.ico">
+
+    <title>18F-总体预览</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../css/vel/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/vel/bootstrap-reset.css" rel="stylesheet">
+
+    <!--Animation css-->
+    <link href="../../css/vel/animate.css" rel="stylesheet">
+
+    <!--Icon-fonts css-->
+    <link href="../../lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="../../lib/ionicon/css/ionicons.min.css" rel="stylesheet"/>
+
+    <!-- Custom styles for this template -->
+    <link href="../../css/vel/style.css" rel="stylesheet">
+    <link href="../../css/vel/helper.css" rel="stylesheet">
+    <link href="../../css/vel/style-responsive.css" rel="stylesheet"/>
+
+    <script src="../../lib/jquery/jquery.js"></script>
+</head>
+
+
+<body>
+
+<!-- Page Start-->
+<div class="wraper container-fluid">
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <div class="widget-panel widget-style-2 bg-pink">
+                <i class="ion-eye"></i>
+                <h2 class="m-0 counter" id="userCount">123</h2>
+                <div>总用户数</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="widget-panel widget-style-2 bg-purple">
+                <i class="ion-paper-airplane"></i>
+                <h2 class="m-0 counter" id="monthloginCount">456</h2>
+                <div>本月登录用户数</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="widget-panel widget-style-2 bg-info">
+                <i class="ion-ios7-pricetag"></i>
+                <h2 class="m-0 counter" id="dayloginCount">789</h2>
+                <div>今日登录用户数</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="widget-panel widget-style-2 bg-success">
+                <i class="ion-android-contacts"></i>
+                <h2 class="m-0 counter" id="loginTotalCount">1818</h2>
+                <div>总登录次数</div>
+            </div>
+        </div>
+    </div> <!-- end row -->
+
+
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="portlet"><!-- /primary heading -->
+                <div class="portlet-heading">
+                    <h3 class="portlet-title text-dark text-uppercase">
+                        活跃用户排行榜
+                    </h3>
+                </div>
+                <div id="portlet1" class="panel-collapse collapse in">
+                    <div class="portlet-body">
+                        <!--柱状图-->
+                        <div id="barChart" style="height: 405px;"></div>
+                        <div class="row text-center m-b-30">
+                            <div class="col-sm-4 col-xs-6">
+                                <h4 id="first"></h4>
+                                <small class="text-muted"> 状元（最活跃用户）</small>
+                            </div>
+                            <div class="col-sm-4 col-xs-6">
+                                <h4 id="second"></h4>
+                                <small class="text-muted">榜眼</small>
+                            </div>
+                            <div class="col-sm-4 col-xs-6">
+                                <h4 id="third"></h4>
+                                <small class="text-muted">探花</small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div> <!-- /Portlet -->
+
+        </div> <!-- end col -->
+
+        <div class="col-lg-5">
+            <div class="portlet"><!-- /primary heading -->
+                <div class="portlet-heading">
+                    <h3 class="portlet-title text-dark text-uppercase">
+                        使用频率分析
+                    </h3>
+                </div>
+                <div id="portlet2" class="panel-collapse collapse in">
+                    <div class="portlet-body" style="margin-top: 30px;">
+                        <!--堆叠拆线图-->
+                        <div id="lineChart" style="height: 275px;"></div>
+                    </div>
+                </div>
+            </div> <!-- /Portlet -->
+            <div class="tile-stats white-bg">
+                <div class="col-sm-8" style="float: left;width: 35%;">
+                    <div class="status">
+                        <h3 class="m-t-15" id="appTotalCount"></h3>
+                        <p>总应用数量</p>
+                    </div>
+                </div>
+                <!--饼图-->
+                <div id="pieChart" style="height: 198px;width: 55%;float: right;margin-top: -50px"></div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End row -->
+<!-- Page End -->
+
+
+<!-- js placed at the end of the document so the pages load faster -->
+
+
+<script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+<!--页面加载进度条-->
+<script src="../../lib/vel/pace.min.js"></script>
+
+<!-- Counter-up  数字从低到高动态累加效果-->
+<script src="../../lib/vel/waypoints.min.js" type="text/javascript"></script>
+<script src="../../lib/vel/jquery.counterup.min.js" type="text/javascript"></script>
+
+<!-- echarts -->
+<script src="../../lib/echartjs/echarts.min.js"></script>
+<script src="../../lib/echartjs/echartsTheme.js"></script>
+<script src="../../lib/layer/layer.js"></script>
+
+<script src="../../lib/require/require.js" data-main="../../js/controller/home/homeContentCtrl.js"></script>
+
+</body>
+</html>

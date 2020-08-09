@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="交通设施管理系统">
+    <meta name="author" content="yuxue">
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <title>18F | AI</title>
+
+    <link href="../../css/vel/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/vel/bootstrap-reset.css" rel="stylesheet">
+    <!--Animation css-->
+    <link href="../../css/vel/animate.css" rel="stylesheet">
+    <!--Icon-fonts css-->
+    <link href="../../lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../lib/ionicon/css/ionicons.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="../../css/vel/style.css" rel="stylesheet">
+    <link href="../../css/vel/helper.css" rel="stylesheet">
+    <link href="../../css/vel/style-responsive.css" rel="stylesheet" />
+    <link href="../../css/common/tab.css" rel="stylesheet" />
+    <link href="../../css/common/common.css" rel="stylesheet" />
+    <style>
+        html, body {
+            overflow-y: hidden;
+            width:100%;
+            height:100%;
+        }
+        /* 菜单特殊图标 */
+        #asideMenu .fa {
+            margin-top: 5px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="w100 h100 dis-none" id="iframe_body"></div>
+    <div class="w100 h100" id="content_body">
+        <!-- 侧边栏菜单 Start-->
+        <aside class="left-panel">
+            <!-- brand -->
+            <div class="logo">
+                <a href="/index" class="logo-expanded js_header_title">
+                    <img src="../../img/angle.png" alt="logo" style="height:35px;width: 35px;">
+                    <span class="nav-label js_title">图像识别</span>
+                </a>
+            </div>
+            <!-- / brand -->
+            
+            <!-- 菜单 -->
+            <nav class="navigation">
+                <ul class="list-unstyled" id="asideMenu"></ul>
+            </nav>
+            <!-- 菜单 End -->
+            
+        </aside>
+        <!-- 侧边栏菜单 Ends-->
+        
+        <!--Main Content Start -->
+        <section class="content">
+            <!-- 头部 -->
+            <header class="top-head container-fluid js_header hidden">
+                <button type="button" class="navbar-toggle pull-left">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+                <!-- Left navbar -->
+                <nav class=" navbar-default hidden-xs" role="navigation">
+                    <ul class="nav navbar-nav" id="nav_bar">
+                        <li class="dropdown text-center">
+                            <!--<a data-toggle='dropdown' class='dropdown-toggle' href='#' id='ownerAct'>
+                                &lt;!&ndash;当前业主名
+                            </a>-->
+                            <h5 style="margin-top: 15px;line-height: inherit;">@Author: yuxue
+                                &nbsp;&nbsp;&nbsp;天行健，君子以自强不息&nbsp;&nbsp;地势坤，君子以厚德载物</h5>
+                            <ul class='dropdown-menu extended pro-menu fadeInUp animated' tabindex='5003' style='overflow: hidden; outline: none;' id="ownerHtml">
+                                <!--业主列表-->
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <!-- Right navbar -->
+                <ul class="list-inline navbar-right top-menu top-right-menu">
+                    <!-- user login dropdown start-->
+                    <li class="dropdown text-center">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <img alt="" src="../../img/user.png" class="img-circle profile-img thumb-sm">
+                            <span class="username" id="userName"></span><span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu extended pro-menu fadeInUp animated" tabindex="5003" style="overflow: hidden; outline: none;">
+                            <li id="updatePassword">
+                                <a href="javascript:void(0)" id="menu-9999" h="../../templates/user/passwordManage.html"><i class="fa fa-cog"></i>修改密码</a>
+                            </li>
+                            <li><a id="logout"><i class="fa fa-sign-out"></i>退出登录</a></li>
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+                <!-- End right navbar -->
+            </header>
+            <!-- 头部 Ends -->
+            
+            <!-- 页面内容 Start -->
+            <!-- ================== -->
+            <ifr-section class="ifr">
+                <div class="label-list">
+                    <label style="padding: 22px 7px 23px;margin-bottom: 0;vertical-align: top;border-right: 1px solid #dfdfdf;background: #fff;" onclick="close_other_tab()" title="关闭其他标签">
+                    </label>
+                </div>
+                <!--右键菜单-->
+                <style>
+                    .right-menu {
+                    display: none;
+                    z-index: 2;
+                    position: fixed;
+                    background-color: white;
+                    color: #000;
+                    margin: 0;
+                    padding: 0;
+                    border: 1px solid #bbb;
+                    box-shadow: 1px 1px 1px #888888,1px 0 1px #ccc;
+                }
+                .right-menu ul {
+                    margin: 0;
+                    padding: 9px 0 5px;
+                }
+                .right-menu ul li {
+                    cursor: pointer;
+                    list-style: none;
+                    font-size: 8px;
+                    padding: 5px 18px 4px;
+                }
+
+                .right-menu ul li:hover {
+                    background: #eee;
+                }
+
+            </style>
+                <div id="contextmenu" class="right-menu">
+                    <ul>
+                        <li id="closeThisTab">关闭当前标签</li>
+                        <li id="closeAllTab">关闭所有标签</li>
+                        <li id="closeOtherTab">关闭其他标签</li>
+                    </ul>
+                </div>
+                <ul id="operateTab" class="list-inline navbar-right top-menu top-right-menu" style="height: 45px;line-height: 45px;background: #fff;margin-left: 0;    border-right: 1px solid #dfdfdf;">
+                    <!-- user login dropdown start-->
+                    <li class="dropdown text-center">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#" style="padding: 16px 10px 12px;">
+                            <span class="ion-ios7-arrow-down"></span>
+                        </a>
+                        <ul class="dropdown-menu extended pro-menu fadeInUp animated" tabindex="5003" style="overflow: hidden; outline: none;width: 160px">
+                            <li onclick="close_all_tab();"><a href="#">关闭所有标签</a></li>
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+            </ifr-section>
+            <!-- 页面内容 Ends -->
+            <!-- ================== -->
+        </section>
+        <!-- Main Content Ends -->
+    </div>
+    
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="../../lib/jquery/jquery.js"></script>
+    <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+    <!--页面加载进度条-->
+    <script src="../../lib/vel/pace.min.js"></script>
+    <!--侧边栏菜单相关-->
+    <script src="../../lib/vel/wow.min.js"></script>
+    <script src="../../lib/vel/jquery.nicescroll.js" type="text/javascript"></script>
+    <!-- 弹窗 -->
+    <script src="../../lib/layer/layer.js"></script>
+    <script src="../../lib/require/require.js" data-main="../../js/controller/home/homeCtrl"></script>
+
+</body>
+
+</html>

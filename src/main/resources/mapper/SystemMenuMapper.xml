@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuxue.mapper.SystemMenuMapper">
+    
+    <resultMap id="BaseResultMap" type="com.yuxue.entity.SystemMenuEntity">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+        <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+        <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+        <result column="menu_level" jdbcType="INTEGER" property="menuLevel" />
+        <result column="menu_icon" jdbcType="VARCHAR" property="menuIcon" />
+        <result column="show_flag" jdbcType="INTEGER" property="showFlag" />
+        <result column="platform" jdbcType="INTEGER" property="platform" />
+        <result column="menu_type" jdbcType="INTEGER" property="menuType" />
+        <result column="permission" jdbcType="VARCHAR" property="permission" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="editor_id" jdbcType="INTEGER" property="editorId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+        <result column="version" jdbcType="INTEGER" property="version" />
+        <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        id, menu_name, menu_url, parent_id, sort, menu_level, menu_icon, show_flag, platform, 
+        menu_type, permission, update_time, editor_id, create_time, creator_id, version, 
+        del_flag
+    </sql>
+    
+    <sql id="Base_Where_Clause">
+        <where>
+            <if test="menuName != null">
+                 and menu_name = #{menuName,jdbcType=VARCHAR}
+            </if>
+            <if test="menuUrl != null">
+                 and menu_url = #{menuUrl,jdbcType=VARCHAR}
+            </if>
+            <if test="parentId != null">
+                 and parent_id = #{parentId,jdbcType=INTEGER}
+            </if>
+            <if test="sort != null">
+                 and sort = #{sort,jdbcType=INTEGER}
+            </if>
+            <if test="menuLevel != null">
+                 and menu_level = #{menuLevel,jdbcType=INTEGER}
+            </if>
+            <if test="menuIcon != null">
+                 and menu_icon = #{menuIcon,jdbcType=VARCHAR}
+            </if>
+            <if test="showFlag != null">
+                 and show_flag = #{showFlag,jdbcType=INTEGER}
+            </if>
+            <if test="platform != null">
+                 and platform = #{platform,jdbcType=INTEGER}
+            </if>
+            <if test="menuType != null">
+                 and menu_type = #{menuType,jdbcType=INTEGER}
+            </if>
+            <if test="permission != null">
+                 and permission = #{permission,jdbcType=VARCHAR}
+            </if>
+            <if test="updateTime != null">
+                 and update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="editorId != null">
+                 and editor_id = #{editorId,jdbcType=INTEGER}
+            </if>
+            <if test="createTime != null">
+                 and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="creatorId != null">
+                 and creator_id = #{creatorId,jdbcType=INTEGER}
+            </if>
+            and del_flag = 0
+        </where>
+    </sql>
+    
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List" />
+        from t_system_menu
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        select id, menu_name, menu_url, parent_id, sort, menu_level, menu_icon, show_flag, 
+        platform, menu_type, permission, update_time, editor_id, create_time, creator_id, 
+        version, del_flag
+        from t_system_menu
+        <include refid="Base_Where_Clause" />
+        order by menu_level, sort, id
+    </select>
+    
+    <insert id="insert" parameterType="com.yuxue.entity.SystemMenuEntity">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select seq from sqlite_sequence where name = 't_system_menu'
+        </selectKey>
+        insert into t_system_menu (menu_name, menu_url, parent_id, 
+            sort, menu_level, menu_icon, 
+            show_flag, platform, menu_type, 
+            permission, editor_id, create_time, 
+            creator_id)
+        values (#{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+            #{sort,jdbcType=INTEGER}, #{menuLevel,jdbcType=INTEGER}, #{menuIcon,jdbcType=VARCHAR}, 
+            #{showFlag,jdbcType=INTEGER}, #{platform,jdbcType=INTEGER}, #{menuType,jdbcType=INTEGER}, 
+            #{permission,jdbcType=VARCHAR}, #{editorId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+            #{creatorId,jdbcType=INTEGER})
+    </insert>
+    
+    <insert id="insertSelective" parameterType="com.yuxue.entity.SystemMenuEntity">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select seq from sqlite_sequence where name = 't_system_menu'
+        </selectKey>
+        insert into t_system_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="menuName != null">
+                menu_name,
+            </if>
+            <if test="menuUrl != null">
+                menu_url,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="menuLevel != null">
+                menu_level,
+            </if>
+            <if test="menuIcon != null">
+                menu_icon,
+            </if>
+            <if test="showFlag != null">
+                show_flag,
+            </if>
+            <if test="platform != null">
+                platform,
+            </if>
+            <if test="menuType != null">
+                menu_type,
+            </if>
+            <if test="permission != null">
+                permission,
+            </if>
+            <if test="editorId != null">
+                editor_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="creatorId != null">
+                creator_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="menuName != null">
+                #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="menuUrl != null">
+                #{menuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="menuLevel != null">
+                #{menuLevel,jdbcType=INTEGER},
+            </if>
+            <if test="menuIcon != null">
+                #{menuIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="showFlag != null">
+                #{showFlag,jdbcType=INTEGER},
+            </if>
+            <if test="platform != null">
+                #{platform,jdbcType=INTEGER},
+            </if>
+            <if test="menuType != null">
+                #{menuType,jdbcType=INTEGER},
+            </if>
+            <if test="permission != null">
+                #{permission,jdbcType=VARCHAR},
+            </if>
+            <if test="editorId != null">
+                #{editorId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="com.yuxue.entity.SystemMenuEntity">
+        update t_system_menu
+        <set>
+            <if test="menuName != null">
+                menu_name = #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="menuUrl != null">
+                menu_url = #{menuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="menuLevel != null">
+                menu_level = #{menuLevel,jdbcType=INTEGER},
+            </if>
+            <if test="menuIcon != null">
+                menu_icon = #{menuIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="showFlag != null">
+                show_flag = #{showFlag,jdbcType=INTEGER},
+            </if>
+            <if test="platform != null">
+                platform = #{platform,jdbcType=INTEGER},
+            </if>
+            <if test="menuType != null">
+                menu_type = #{menuType,jdbcType=INTEGER},
+            </if>
+            <if test="permission != null">
+                permission = #{permission,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="editorId != null">
+                editor_id = #{editorId,jdbcType=INTEGER},
+            </if>
+            <if test="creatorId != null">
+                creator_id = #{creatorId,jdbcType=INTEGER},
+            </if>
+             version = version + 1, 
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+          and version = #{version, jdbcType=INTEGER} 
+    </update>
+    
+    <update id="updateByPrimaryKey" parameterType="com.yuxue.entity.SystemMenuEntity">
+        update t_system_menu
+        set menu_name = #{menuName,jdbcType=VARCHAR},
+            menu_url = #{menuUrl,jdbcType=VARCHAR},
+            parent_id = #{parentId,jdbcType=INTEGER},
+            sort = #{sort,jdbcType=INTEGER},
+            menu_level = #{menuLevel,jdbcType=INTEGER},
+            menu_icon = #{menuIcon,jdbcType=VARCHAR},
+            show_flag = #{showFlag,jdbcType=INTEGER},
+            platform = #{platform,jdbcType=INTEGER},
+            menu_type = #{menuType,jdbcType=INTEGER},
+            permission = #{permission,jdbcType=VARCHAR},
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+            editor_id = #{editorId,jdbcType=INTEGER},
+            creator_id = #{creatorId,jdbcType=INTEGER},
+            version =  version + 1 
+        where id = #{id,jdbcType=INTEGER}
+          and version = #{version, jdbcType=INTEGER} 
+    </update>
+    
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        update t_system_menu set del_flag = 1 
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

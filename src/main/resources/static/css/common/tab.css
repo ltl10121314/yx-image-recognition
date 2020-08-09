@@ -1,0 +1,98 @@
+ifr-section {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  height:100%;
+}
+.ifr{
+	
+    
+}
+.ifr>label {
+  background: #fff; 
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd; 
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 20px;
+  padding-right: 0px;
+  cursor: pointer;
+  z-index: 1;
+  margin-left: 0px;
+  margin-bottom: 0px;
+  font-weight: 500; 
+  height:45px;
+}
+.ifr>.tab-item {
+  width: 100%;
+  margin-top: -1px;
+  padding: 1em;
+  border-top: 1px solid #ddd;
+  -webkit-order: 1;
+  order: 1;
+}
+.ifr>input[type=radio], .tab-item {
+  display: none;
+}
+.ifr>input[type=radio]:checked + label {
+  background: #eee;
+  border-bottom: 1px solid #eee;
+}
+.ifr>input[type=radio]:checked + label + .tab-item{
+  display: block;
+}
+.ifr-tab-title{
+	float:left;
+	font-family:"΢���ź�";
+	font-size: 14px;
+	line-height:20px;
+}
+
+
+.icon-close>div{
+	line-height:18px;
+	
+}
+.icon-close {
+	float:right;
+
+	
+}
+.icon-close i{
+	width:10px;
+	
+}
+
+
+.fw-admin-iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+iframe[Attributes Style] {
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+}
+iframe {
+    border-width: 0px;
+    border-style: inset;
+    border-color: initial;
+    border-image: initial;
+}
+
+.tab-item{
+	position: relative;
+    bottom: 0px;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    overflow: hidden;
+	height:100%;
+}

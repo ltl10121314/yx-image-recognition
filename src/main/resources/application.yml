@@ -1,0 +1,52 @@
+server:
+  port: 16666
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name : demo
+  mvc: 
+    favicon: 
+      enabled: true
+  messages:
+    basename: i18n.login
+    
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    
+## 环境配置文件 dev sqlite
+  profiles:
+    active: dev
+   
+## 静态页面配置
+  thymeleaf: 
+    #热部署文件，页面不产生缓存，及时更新
+    cache: false
+    prefix: classpath:static/templates/
+    suffix: .html
+    encoding: UTF-8
+
+## Mybatis config
+mybatis:
+  mapperLocations: classpath:mapper/**/*.xml
+  configLocation: classpath:mybatis.xml
+
+## pagehelper
+pagehelper: 
+  helperDialect: sqlite #postgresql
+  reasonable: true
+  supportMethodsArguments: true
+  params: countSql
+  count: countSql
+  returnPageInfo: check
+
+## 记录日志
+logging: 
+  config: classpath:logback-spring.xml
+## Start logging
+  level: 
+    root: INFO
+
+

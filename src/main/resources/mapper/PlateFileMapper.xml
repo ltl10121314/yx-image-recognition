@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuxue.mapper.PlateFileMapper">
+    
+    <resultMap id="BaseResultMap" type="com.yuxue.entity.PlateFileEntity">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+        <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+        <result column="file_type" jdbcType="VARCHAR" property="fileType" />
+        <result column="file_length" jdbcType="INTEGER" property="fileLength" />
+        <result column="plate" jdbcType="VARCHAR" property="plate" />
+        <result column="plate_color" jdbcType="VARCHAR" property="plateColor" />
+        <result column="last_reco_time" jdbcType="VARCHAR" property="lastRecoTime" />
+        <result column="temp_path" jdbcType="VARCHAR" property="tempPath" />
+        <result column="reco_plate" jdbcType="VARCHAR" property="recoPlate" />
+        <result column="reco_color" jdbcType="VARCHAR" property="recoColor" />
+        <result column="reco_correct" jdbcType="INTEGER" property="recoCorrect" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        id, file_name, file_path, file_type, file_length, plate, plate_color, last_reco_time, 
+        temp_path, reco_plate, reco_color, reco_correct
+    </sql>
+    
+    <sql id="Base_Where_Clause">
+        <where>
+            <if test="fileName != null">
+                 and file_name = #{fileName,jdbcType=VARCHAR}
+            </if>
+            <if test="filePath != null">
+                 and file_path = #{filePath,jdbcType=VARCHAR}
+            </if>
+            <if test="fileType != null">
+                 and file_type = #{fileType,jdbcType=VARCHAR}
+            </if>
+            <if test="fileLength != null">
+                 and file_length = #{fileLength,jdbcType=INTEGER}
+            </if>
+            <if test="plate != null">
+                 and plate = #{plate,jdbcType=VARCHAR}
+            </if>
+            <if test="plateColor != null">
+                 and plate_color = #{plateColor,jdbcType=VARCHAR}
+            </if>
+            <if test="lastRecoTime != null">
+                 and last_reco_time = #{lastRecoTime,jdbcType=VARCHAR}
+            </if>
+            <if test="tempPath != null">
+                 and temp_path = #{tempPath,jdbcType=VARCHAR}
+            </if>
+            <if test="recoPlate != null">
+                 and reco_plate = #{recoPlate,jdbcType=VARCHAR}
+            </if>
+            <if test="recoColor != null">
+                 and reco_color = #{recoColor,jdbcType=VARCHAR}
+            </if>
+            <if test="recoCorrect != null">
+                 and reco_correct = #{recoCorrect,jdbcType=INTEGER}
+            </if>
+        </where>
+    </sql>
+    
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List" />
+        from t_plate_file
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        select id, file_name, file_path, file_type, file_length, plate, plate_color, last_reco_time, 
+        temp_path, reco_plate, reco_color, reco_correct
+        from t_plate_file
+        <include refid="Base_Where_Clause" />
+        order by id desc
+    </select>
+    
+    <insert id="insert" parameterType="com.yuxue.entity.PlateFileEntity">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select seq from sqlite_sequence WHERE name = 't_plate_file'
+        </selectKey>
+        insert into t_plate_file (file_name, file_path, file_type, 
+            file_length, plate, plate_color, 
+            last_reco_time, temp_path, reco_plate, 
+            reco_color, reco_correct)
+        values (#{fileName,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, 
+            #{fileLength,jdbcType=INTEGER}, #{plate,jdbcType=VARCHAR}, #{plateColor,jdbcType=VARCHAR}, 
+            #{lastRecoTime,jdbcType=VARCHAR}, #{tempPath,jdbcType=VARCHAR}, #{recoPlate,jdbcType=VARCHAR}, 
+            #{recoColor,jdbcType=VARCHAR}, #{recoCorrect,jdbcType=INTEGER})
+    </insert>
+    
+    <insert id="insertSelective" parameterType="com.yuxue.entity.PlateFileEntity">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select seq from sqlite_sequence WHERE name = 't_plate_file'
+        </selectKey>
+        insert into t_plate_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileName != null">
+                file_name,
+            </if>
+            <if test="filePath != null">
+                file_path,
+            </if>
+            <if test="fileType != null">
+                file_type,
+            </if>
+            <if test="fileLength != null">
+                file_length,
+            </if>
+            <if test="plate != null">
+                plate,
+            </if>
+            <if test="plateColor != null">
+                plate_color,
+            </if>
+            <if test="lastRecoTime != null">
+                last_reco_time,
+            </if>
+            <if test="tempPath != null">
+                temp_path,
+            </if>
+            <if test="recoPlate != null">
+                reco_plate,
+            </if>
+            <if test="recoColor != null">
+                reco_color,
+            </if>
+            <if test="recoCorrect != null">
+                reco_correct,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileName != null">
+                #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="filePath != null">
+                #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="fileType != null">
+                #{fileType,jdbcType=VARCHAR},
+            </if>
+            <if test="fileLength != null">
+                #{fileLength,jdbcType=INTEGER},
+            </if>
+            <if test="plate != null">
+                #{plate,jdbcType=VARCHAR},
+            </if>
+            <if test="plateColor != null">
+                #{plateColor,jdbcType=VARCHAR},
+            </if>
+            <if test="lastRecoTime != null">
+                #{lastRecoTime,jdbcType=VARCHAR},
+            </if>
+            <if test="tempPath != null">
+                #{tempPath,jdbcType=VARCHAR},
+            </if>
+            <if test="recoPlate != null">
+                #{recoPlate,jdbcType=VARCHAR},
+            </if>
+            <if test="recoColor != null">
+                #{recoColor,jdbcType=VARCHAR},
+            </if>
+            <if test="recoCorrect != null">
+                #{recoCorrect,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="com.yuxue.entity.PlateFileEntity">
+        update t_plate_file
+        <set>
+            <if test="fileName != null">
+                file_name = #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="filePath != null">
+                file_path = #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="fileType != null">
+                file_type = #{fileType,jdbcType=VARCHAR},
+            </if>
+            <if test="fileLength != null">
+                file_length = #{fileLength,jdbcType=INTEGER},
+            </if>
+            <if test="plate != null">
+                plate = #{plate,jdbcType=VARCHAR},
+            </if>
+            <if test="plateColor != null">
+                plate_color = #{plateColor,jdbcType=VARCHAR},
+            </if>
+            <if test="lastRecoTime != null">
+                last_reco_time = #{lastRecoTime,jdbcType=VARCHAR},
+            </if>
+            <if test="tempPath != null">
+                temp_path = #{tempPath,jdbcType=VARCHAR},
+            </if>
+            <if test="recoPlate != null">
+                reco_plate = #{recoPlate,jdbcType=VARCHAR},
+            </if>
+            <if test="recoColor != null">
+                reco_color = #{recoColor,jdbcType=VARCHAR},
+            </if>
+            <if test="recoCorrect != null">
+                reco_correct = #{recoCorrect,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateByPrimaryKey" parameterType="com.yuxue.entity.PlateFileEntity">
+        update t_plate_file
+        set file_name = #{fileName,jdbcType=VARCHAR},
+            file_path = #{filePath,jdbcType=VARCHAR},
+            file_type = #{fileType,jdbcType=VARCHAR},
+            file_length = #{fileLength,jdbcType=INTEGER},
+            plate = #{plate,jdbcType=VARCHAR},
+            plate_color = #{plateColor,jdbcType=VARCHAR},
+            last_reco_time = #{lastRecoTime,jdbcType=VARCHAR},
+            temp_path = #{tempPath,jdbcType=VARCHAR},
+            reco_plate = #{recoPlate,jdbcType=VARCHAR},
+            reco_color = #{recoColor,jdbcType=VARCHAR},
+            reco_correct = #{recoCorrect,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_plate_file
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    
+    
+    <select id="getUnRecogniseList" resultMap="BaseResultMap">
+        select id, file_name, file_path, file_type, file_length, plate, plate_color, last_reco_time, 
+        temp_path, reco_plate, reco_color, reco_correct
+        from t_plate_file
+        <where>
+            <!-- 0未识别 1正确 2错误 -->
+            reco_correct = 0
+        </where>
+        order by id desc
+    </select>    
+    
+    
+</mapper>

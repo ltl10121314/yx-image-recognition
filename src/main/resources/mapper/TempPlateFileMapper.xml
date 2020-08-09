@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuxue.mapper.TempPlateFileMapper">
+    
+    <resultMap id="BaseResultMap" type="com.yuxue.entity.TempPlateFileEntity">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+        <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+        <result column="file_type" jdbcType="VARCHAR" property="fileType" />
+        <result column="file_length" jdbcType="INTEGER" property="fileLength" />
+        <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+        <result column="level" jdbcType="INTEGER" property="level" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        id, file_name, file_path, file_type, file_length, parent_id,  level 
+    </sql>
+    
+    <sql id="Base_Where_Clause">
+        <where>
+            <if test="fileName != null">
+                 and file_name = #{fileName,jdbcType=VARCHAR}
+            </if>
+            <if test="filePath != null">
+                 and file_path = #{filePath,jdbcType=VARCHAR}
+            </if>
+            <if test="fileType != null">
+                 and file_type = #{fileType,jdbcType=VARCHAR}
+            </if>
+            <if test="fileLength != null">
+                 and file_length = #{fileLength,jdbcType=INTEGER}
+            </if>
+            <if test="parentId != null">
+                 and parent_id = #{parentId,jdbcType=INTEGER}
+            </if>
+            <if test="level != null">
+                 and  level  = #{level,jdbcType=INTEGER}
+            </if>
+        </where>
+    </sql>
+    
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List" />
+        from temp_plate_file
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        select id, file_name, file_path, file_type, file_length, parent_id,  level 
+        from temp_plate_file
+        <include refid="Base_Where_Clause" />
+        order by id desc
+    </select>
+    
+    <insert id="insert" parameterType="com.yuxue.entity.TempPlateFileEntity">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select seq from sqlite_sequence WHERE name = 'temp_plate_file'
+        </selectKey>
+        insert into temp_plate_file (file_name, file_path, file_type, 
+            file_length, parent_id,  level 
+            )
+        values (#{fileName,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, 
+            #{fileLength,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}
+            )
+    </insert>
+    
+    <insert id="insertSelective" parameterType="com.yuxue.entity.TempPlateFileEntity">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select seq from sqlite_sequence WHERE name = 'temp_plate_file'
+        </selectKey>
+        insert into temp_plate_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileName != null">
+                file_name,
+            </if>
+            <if test="filePath != null">
+                file_path,
+            </if>
+            <if test="fileType != null">
+                file_type,
+            </if>
+            <if test="fileLength != null">
+                file_length,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="level != null">
+                 level ,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileName != null">
+                #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="filePath != null">
+                #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="fileType != null">
+                #{fileType,jdbcType=VARCHAR},
+            </if>
+            <if test="fileLength != null">
+                #{fileLength,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="com.yuxue.entity.TempPlateFileEntity">
+        update temp_plate_file
+        <set>
+            <if test="fileName != null">
+                file_name = #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="filePath != null">
+                file_path = #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="fileType != null">
+                file_type = #{fileType,jdbcType=VARCHAR},
+            </if>
+            <if test="fileLength != null">
+                file_length = #{fileLength,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                 level  = #{level,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateByPrimaryKey" parameterType="com.yuxue.entity.TempPlateFileEntity">
+        update temp_plate_file
+        set file_name = #{fileName,jdbcType=VARCHAR},
+            file_path = #{filePath,jdbcType=VARCHAR},
+            file_type = #{fileType,jdbcType=VARCHAR},
+            file_length = #{fileLength,jdbcType=INTEGER},
+            parent_id = #{parentId,jdbcType=INTEGER},
+             level  = #{level,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from temp_plate_file
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    
+    
+    <delete id="turncateTable">
+        delete from temp_plate_file;
+        delete from sqlite_sequence WHERE name = 'temp_plate_file'
+    </delete>
+    
+    
+    <insert id="batchInsert" parameterType = "com.yuxue.entity.TempPlateFileEntity">
+        insert into temp_plate_file (file_name, file_path, file_type)
+        values 
+        <foreach collection="list" index="index" item="item" open="(" close=")" separator="),(">
+            ifnull(#{item.fileName, jdbcType=VARCHAR}, ''),
+            ifnull(#{item.filePath, jdbcType=VARCHAR}, ''),
+            ifnull(#{item.fileType, jdbcType=VARCHAR}, '')
+        </foreach>
+    </insert>
+    
+    
+    <insert id="updateFileInfo">
+        insert into t_plate_file (file_name, file_path, file_type)
+        select file_name, file_path, file_type from temp_plate_file temp
+        where not exists (select 1 from t_plate_file t where t.file_path = temp.file_path )
+    </insert>
+    
+    
+    
+    
+</mapper>
